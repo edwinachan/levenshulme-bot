@@ -22,6 +22,27 @@ function getRandomTweet (arr) {
 
 const runBot = () => {
   Twitter.get('search/tweets', params, function(err, data) {
+      var tweets = data.statuses;
+      var tweet = getRandomTweet(tweets);
+
+      if (!err) {
+          var tweetId = tweet.id_str;
+
+          if (typeof tweet != 'undefined') {
+              Twitter.post('statuses/retweet/:id', {
+                  id: tweetId
+              }, (err, response) => {
+                  if (response) {
+                      console.log('Retweeted');
+                  }
+                  if (err) {
+                      console.log('Retweet error: ', err);
+                  }
+              });
+          }
+      } else {
+          console.log('Something went wrong while searching');
+      }
   });
 }
 
