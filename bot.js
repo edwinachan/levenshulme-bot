@@ -11,9 +11,17 @@ var params = {
   count: 100
 }
 
+function getRandomTweet (arr) {
+    try {
+        var index = Math.floor(Math.random()*arr.length);
+        return arr[index];
+    } catch (error) {
+        return arr[0];
+    }
+}
+
 const runBot = () => {
   Twitter.get('search/tweets', params, function(err, data) {
-
   });
 }
 
